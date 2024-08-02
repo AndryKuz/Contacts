@@ -1,0 +1,12 @@
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    .tag {
+      background: var(--tag);
+      padding: 0 15px;
+      border-radius: 4px;
+      font-size: 13px;
+      line-height: 19.5px;
+    }
+  }
