@@ -1,9 +1,13 @@
 import { useForm } from "react-hook-form";
 import style from "./Form.module.scss";
 import Button, { nameButton } from "../../common/Button/Button";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../data/addContact";
+import { fetchContacts } from "../../data/contactSlice";
 
 const Form = () => {
   const buttonData = nameButton.find((item) => item.id === 1);
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -11,9 +15,18 @@ const Form = () => {
     reset,
   } = useForm({ mode: "onBlur" });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    const contactWithDate = {
+      ...data,
+      createdAt: new Date().toISOString(),
+    };
+    try {
+      await dispatch(addContact(contactWithDate)).unwrap();
+      dispatch(fetchContacts());
+      reset();
+    } catch (error) {
+      console.log("Failed to save contact:", error);
+    }
   };
   return (
     <section className={style.formSection}>

@@ -1,17 +1,14 @@
 import style from "./Tags.module.scss";
 
-const Tags = () => {
+const Tags = ({ contact }) => {
+  const tags = contact && Array.isArray(contact.tags) ? contact.tags : [];
   return (
     <div className={style.tags}>
-      <div className={style.tag}>tag</div>
-      <div className={style.tag}>tag1</div>
-      <div className={style.tag}>tag2</div>
-      <div className={style.tag}>tag</div>
-      <div className={style.tag}>tag1</div>
-      <div className={style.tag}>tag2</div>
-      <div className={style.tag}>tag</div>
-      <div className={style.tag}>tag1</div>
-      <div className={style.tag}>tag2</div>
+      {tags?.map((item, index) => (
+        <div className={style.tag} key={index}>
+          {item}
+        </div>
+      ))}
     </div>
   );
 };

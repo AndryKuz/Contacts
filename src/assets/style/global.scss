@@ -16,7 +16,6 @@ $containerWidth: $maxWidthContainer + $containerPadding;
 .wrapper {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     max-width: $maxWidth;
     .container {
         max-width: $containerWidth;
