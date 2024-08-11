@@ -1,20 +1,53 @@
 .contact {
-    padding-top: 40px;
+  padding-top: 40px;
+  width: 100%;
+  max-width: 431px;
+  min-width: 350px;
+  h4 {
+    margin-top: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  input {
+    height: 48px;
+    padding: 10px;
+    color: var(--gray);
+    font-size: 12px;
+    line-height: 20px;
     width: 100%;
-    max-width: 431px;
-    h4 {
-        margin-top: 30px;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-    input {
-        height: 48px;
-        padding: 10px;
-        color:var(--gray) ;
-        font-size: 12px;
+    border: 1px solid var(--gray);
+    margin-top: 30px;
+  }
+  .headInfo {
+    display: flex;
+    justify-content: space-between;
+    .tooltipParent {
+      position: relative;
+      & > div {
+        position: absolute;
+        top: 30px;
+        left: 10px;
+        background: var(--gray);
+        border-radius: 5px;
+        transition: opacity 0.1s ease;
+        font-size: 14px;
         line-height: 20px;
-        width: 100%;
-        border: 1px solid var(--gray);
-        margin: 30px 0 20px 0;
+        padding: 0 5px;
+        opacity: 0;
+      }
+      &:hover > div {
+        transition: opacity 0.1s ease;
+        opacity: 1;
+      }
+
+      svg {
+        margin-left: 20px;
+      }
     }
+  }
+}
+.errorMessage {
+  color: red;
+  padding-left: 10px;
+  margin: 5px 0 15px 0;
 }

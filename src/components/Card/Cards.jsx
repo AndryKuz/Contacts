@@ -5,7 +5,6 @@ import { useContacts, useError, useLoading } from "../../data/contactSlice";
 
 const Cards = () => {
 
-// const { contacts, loading, error } = useSelector((state) => state.contacts);
 const contacts = useContacts();
 const loading = useLoading();
 const error = useError();

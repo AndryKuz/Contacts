@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+
+import { addTagToContact } from "./addTagToContact";
 import { addContact } from "./addContact";
 
 export const fetchContacts = createAsyncThunk(
@@ -17,8 +19,6 @@ export const fetchContacts = createAsyncThunk(
     }
   }
 );
-
-
 
 const contactsSlice = createSlice({
   name: "contacts",
@@ -57,6 +57,29 @@ const contactsSlice = createSlice({
       .addCase(addContact.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(addTagToContact.fulfilled, (state, { payload }) => {
+        const index = state.contacts.findIndex(
+          (contact) => contact.id === payload.id
+        );
+
+        if (index !== -1) {
+          const existingContact = state.contacts[index];
+          const updatedTags = Array.isArray(existingContact.tags)
+            ? [...existingContact.tags, payload.tag]
+            : [payload.tag];
+          const updatedContact = {
+            ...existingContact,
+            tags: updatedTags,
+          };
+          state.contacts[index] = updatedContact;
+        } else {
+          const newContact = {
+            ...payload,
+            tags: Array.isArray(payload.tags) ? payload.tags : [payload.tag],
+          };
+          state.contacts.push(newContact);
+        }
       });
   },
 });
@@ -66,7 +89,9 @@ export default contactsSlice.reducer;
 
 export const useContacts = () => {
   const contacts = useSelector((state) => state.contacts.contacts);
-  const sortedContacts = contacts.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const sortedContacts = contacts
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   return sortedContacts;
 };
 

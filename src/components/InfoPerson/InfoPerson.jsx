@@ -4,36 +4,38 @@ import { Link } from "react-router-dom";
 import style from "./InfoPerson.module.scss";
 import Avatar from "../../assets/images/avatar.svg";
 
-const InfoPerson = ({ contact }) => {
 
-
+const InfoPerson = ({ contactInfo }) => {
   return (
     <>
-      {!contact ? (
+      {!contactInfo ? (
         <div>Информация о контакте недоступна</div>
       ) : (
-        <div className={style.cardInfo}>
-          <div className={style.avatar}>
-            <Link to={`/contact/${contact.id}`}>
+        <Link to={`/contact/${contactInfo.id}`}>
+          <div className={style.cardInfo}>
+            
+            <div className={style.avatar}>
               <img src={Avatar} alt="avatar" />
-            </Link>
+
+            </div>
+            <div className={style.info}>
+              <span>{contactInfo.firstName}</span>{" "}
+              <span>{contactInfo.lastName}</span>
+              <p>{contactInfo.email}</p>
+            </div>
           </div>
-          <div className={style.info}>
-            <span>{contact.firstName}</span> <span>{contact.lastName}</span>
-            <p>{contact.email}</p>
-          </div>
-        </div>
+        </Link>
       )}
     </>
   );
 };
 
 InfoPerson.propTypes = {
-  contact: PropTypes.shape({
+  contactInfo: PropTypes.shape({
     id: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 };
 export default InfoPerson;

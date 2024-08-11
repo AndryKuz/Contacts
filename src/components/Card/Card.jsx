@@ -14,11 +14,12 @@ const Card = ({ contact }) => {
   const removeItem = (id) => {
     dispatch(removeContact(id));
   }
+console.log(contact);
   return (
     
     <div className={style.cardItem}>
       <div className={style.info}>
-        <InfoPerson contact={contact}/>
+        <InfoPerson contactInfo={contact}/>
       </div>
       <div className={style.remove} onClick={() => removeItem(contact.id)}>
         <img src={Cancel} alt="cancel" />
